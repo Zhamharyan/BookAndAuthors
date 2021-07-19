@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="dao" class="Data.DAO"></bean>
+    <bean id="authorService" class="Service.AuthorService">
+        <property name="dao" ref="dao"></property>
+    </bean>
+
+    <bean id="bookService" class="Service.BookService">
+        <property name="dao" ref="dao"></property>
+    </bean>
+
+    <bean id="authorController" class="Controller.AuthorController">
+        <property name="authorService" ref="authorService"></property>
+        <property name="bookController" ref="bookController"></property>
+    </bean>
+
+    <bean id="bookController" class="Controller.BookController">
+        <property name="bookService" ref="bookService"></property>
+        <property name="authorController" ref="authorController"></property>
+    </bean>
+
+    <bean id="startController" class="Controller.Start">
+        <property name="authorController" ref="authorController"></property>
+        <property name="bookController" ref="bookController"></property>
+    </bean>
+
+
+
+
+
+
+</beans>
